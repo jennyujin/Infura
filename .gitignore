@@ -1,5 +1,5 @@
 # API Key
 .env
 
-# config
-config/config.json
+# Ignore all files in the config directory
+config/
