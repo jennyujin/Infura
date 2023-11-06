@@ -1,12 +1,5 @@
 require('dotenv').config();
-const endpoints = process.env.INFURA_ENDPOINT;
-
-
-// let config = require('../config/config.json');
-// const network = 'ethereum';
-// const endpoints = config.endpoints[network];
-
-// const endpoints = 'https://mainnet.infura.io/v3/faa03c7fb045413cab22b4fb6a74796f';
+const endpoints = process.env.ETHEREUM_ENDPOINT;
 
 // 0. terminal일 경우 - node 접속
 // node //(없으면 설치)
@@ -15,17 +8,16 @@ const endpoints = process.env.INFURA_ENDPOINT;
 const { Web3 } = require('web3');
 
 // 2. SDK에 Infura RPC 연결
-// Endpoint https://app.infura.io/dashboard/ethereum/faa03c7fb045413cab22b4fb6a74796f/settings/endpoints
 const web3 = new Web3(endpoints); 
 
 (async () => {
   try {
     // 3. 블록 데이터 조회해보기
-    const currentBlockNumber = await web3.eth.getBlockNumber();
+    const currentBlockNumber = await web3.eth.getBlockNumber(); // Get the current block number.
     console.log('Current Block Number:', currentBlockNumber);
 
     const blockNumberToCheck = 12345; // Replace with the block number you want to check
-    const transactionCount = await web3.eth.getBlockTransactionCount(blockNumberToCheck);
+    const transactionCount = await web3.eth.getBlockTransactionCount(blockNumberToCheck); // transactionCount
     console.log(`Transaction Count in Block ${blockNumberToCheck}:`, transactionCount);
 
     const blockNumberToFetch = 12345; // Replace with the block number you want to fetch from
