@@ -1,2 +1,5 @@
 # API Key
 .env
+
+# config
+config/config.json
