@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 const endpoints = process.env.ETHEREUM_ENDPOINT;
+const blockNumber = 17516353;
 
 // 1. Web3.js 선언 (없으면 설치)
 const { Web3 } = require('web3');
@@ -21,7 +22,7 @@ function replacer(key, value) {
 (async () => {
   try {
     // 3. 특정 블록의 정보를 가져오기
-    const blockNumberToCheck = 18507061; // 조회하려는 블록 번호
+    const blockNumberToCheck = blockNumber ; // 조회하려는 블록 번호
     const blockInfo = await web3.eth.getBlock(blockNumberToCheck, true); // 'true'를 전달하여 트랜잭션 정보를 포함
 
     // BigInt 값을 문자열로 변환
