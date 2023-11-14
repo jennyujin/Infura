@@ -3,3 +3,6 @@
 
 # config file
 config.json
+
+# Ignore Node.js modules folder
+node_modules/
