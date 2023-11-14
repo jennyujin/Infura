@@ -3,6 +3,8 @@ Basic Dune Client Class responsible for refreshing Dune Queries
 Framework built on Dune's API Documentation
 https://duneanalytics.notion.site/API-Documentation-1b93d16e0fa941398e15047f643e003a
 https://github.com/duneanalytics/dune-client/blob/main/dune_client/api/base.py
+https://dune.com/docs/api/quick-start/api-py/#install-setup
+https://docs.google.com/presentation/d/1w6KsA9UIYZt71psmYrxvB-0nVNcgMdn60sWFe1UlFlM/edit#slide=id.g14392fb773f_0_104
 """
 from __future__ import annotations
 
