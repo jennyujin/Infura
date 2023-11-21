@@ -1,14 +1,38 @@
 from dune_client.client import DuneClient
-
-# `dotenv` 라이브러리를 불러와 `.env` 파일의 환경 변수를 불러옵니다.
 import dotenv
+import os
+import csv
 
-# 현재 디렉토리에 있는 `.env` 파일의 환경 변수를 불러옵니다.
 dotenv.load_dotenv(".env")
-# 환경 변수를 사용하여 `DuneClient` 인스턴스를 생성합니다.
+
+file_path = os.path.abspath("./export/nft_trades.csv")
+
 dune = DuneClient.from_env()
-# Dune 쿼리 ID 1215383의 최신 결과를 가져옵니다. 결과는 최대 8시간 동안 캐시됩니다.
 results = dune.get_latest_result(3214602, max_age_hours=8)
 
-# 가져온 결과를 콘솔에 출력합니다.
-print(results)
+# Check if the 'data' attribute exists in the ResultsResponse
+if hasattr(results, 'result') and hasattr(results.result, 'rows'):
+    rows = results.result.rows
+else:
+    # Provide a default or handle the case when 'rows' is not available
+    rows = []  # Replace with default rows or handle accordingly
+
+# Check if the 'metadata' attribute exists in the ResultsResponse
+if hasattr(results, 'result') and hasattr(results.result, 'metadata'):
+    # Use column names if available
+    column_names = results.result.metadata.column_names
+else:
+    # Provide a default or handle the case when metadata.column_names is not available
+    column_names = ['blockchain', 'nft_contract_address', 'project_contract_address',
+                    'token_id', 'evt_type', 'trade_category', 'trade_type', 'tx_hash', 'block_time', 'block_number',
+                    'amount_raw', 'amount_original', 'amount_usd', 'currency_contract',
+                    'currency_symbol', 'project', 'number_of_items', 'tx_from', 'tx_to']  # Replace with actual column names
+
+# Write results to CSV file
+with open(file_path, "w", newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(column_names)
+
+    for row in rows:
+        # Ensure columns are written in the correct order
+        writer.writerow([row.get(col, '') for col in column_names])
