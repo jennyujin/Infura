@@ -1,4 +1,5 @@
 # https://docs.etherscan.io/
+# https://docs.etherscan.io/api-endpoints/blocks
 
 from requests import get
 import os

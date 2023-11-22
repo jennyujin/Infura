@@ -5,10 +5,16 @@ import csv
 
 dotenv.load_dotenv(".env")
 
-file_path = os.path.abspath("./export/nft_trades.csv")
+# queryid = 3214602
+# filename = 'nft_trades' 
+
+queryid = 3220559
+filename = 'nft_transfer'
+
+file_path = os.path.abspath(f"./export/{filename}.csv")
 
 dune = DuneClient.from_env()
-results = dune.get_latest_result(3214602, max_age_hours=8)
+results = dune.get_latest_result(queryid, max_age_hours=8)
 
 # Check if the 'data' attribute exists in the ResultsResponse
 if hasattr(results, 'result') and hasattr(results.result, 'rows'):
@@ -23,10 +29,7 @@ if hasattr(results, 'result') and hasattr(results.result, 'metadata'):
     column_names = results.result.metadata.column_names
 else:
     # Provide a default or handle the case when metadata.column_names is not available
-    column_names = ['blockchain', 'nft_contract_address', 'project_contract_address',
-                    'token_id', 'evt_type', 'trade_category', 'trade_type', 'tx_hash', 'block_time', 'block_number',
-                    'amount_raw', 'amount_original', 'amount_usd', 'currency_contract',
-                    'currency_symbol', 'project', 'number_of_items', 'tx_from', 'tx_to']  # Replace with actual column names
+    column_names = ['blockchain', 'nft_contract_address', 'project_contract_address'] # sample 
 
 # Write results to CSV file
 with open(file_path, "w", newline='') as f:
