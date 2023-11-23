@@ -14,10 +14,22 @@ etherscan_api = api_key
 collection_id = '0xED5AF388653567Af2F388E6224dC7C4b3241C544' #azuki
 
 ## API PRO account 필요 
-# collection info 호출 
-collection_url = f'https://api.etherscan.io/api?module=token&action=tokeninfo&contractaddress={collection_id}&apikey={etherscan_api}'
-response = get(collection_url)
-collectioninfo = response.json()
-print(collectioninfo)
+## collection info 호출 
+# collection_url = f'https://api.etherscan.io/api?module=token&action=tokeninfo&contractaddress={collection_id}&apikey={etherscan_api}'
+# response = get(collection_url)
+# collectioninfo = response.json()
+# print(collectioninfo)
 
+# Total Nodes Count
+nodecount_url = f'https://api.etherscan.io/api?module=stats&action=nodecount&apikey={etherscan_api}'
+response = get(nodecount_url)
+nodecount = response.json()
+print(nodecount)
+
+# Ether Balance 
+# currency = wei
+ethbalance_url = f'https://api.etherscan.io/api?module=account&action=balancemulti&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a,0x63a9975ba31b0b9626b34300f7f627147df1f526,0x198ef1ec325a96cc354c7266a038be8b5c558f67&tag=latest&apikey={etherscan_api}'
+response = get(ethbalance_url)
+ethbalance = response.json()
+print(ethbalance)
 
