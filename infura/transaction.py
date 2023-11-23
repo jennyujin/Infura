@@ -45,7 +45,9 @@ if log_data:
     print(f"Data: {log_data['data']}")
     print(f"Topics: {log_data['topics']}")
     # 로우 데이터 출력
-    print("Raw Data:")
+    print("Transaction Raw Data:")
+    print(transaction)
+    print("Log Raw Data:")
     print(log_data)
 else:
     print(f"No log with ID {log_id} found in block {block_number} for transaction {transaction_hash}.")

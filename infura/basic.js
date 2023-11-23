@@ -1,18 +1,21 @@
+// node infura/test2.js         
+
 require('dotenv').config();
-const endpoints = process.env.ETHEREUM_ENDPOINT;
-
-// 0. terminal일 경우 - node 접속
-// node //(없으면 설치)
-
-// 1. Web3.js 선언 (없으면 설치)
 const { Web3 } = require('web3');
 
-// 2. SDK에 Infura RPC 연결
-const web3 = new Web3(endpoints); 
+// .env 파일에서 변수 불러오기
+const infuraUrl = process.env.ETHEREUM_ENDPOINT;
+
+// 이하 코드에서 infuraUrl을 사용할 수 있습니다.
+console.log('Infura URL:', infuraUrl);
+
+// web3 객체 생성 및 프로바이더 설정
+// SDK에 Infura RPC 연결
+const web3 = new Web3(new Web3.providers.HttpProvider(infuraUrl));
 
 (async () => {
   try {
-    // 3. 블록 데이터 조회해보기
+    // 블록 데이터 조회
     const currentBlockNumber = await web3.eth.getBlockNumber(); // Get the current block number.
     console.log('Current Block Number:', currentBlockNumber);
 
@@ -29,7 +32,7 @@ const web3 = new Web3(endpoints);
     const fetchedTransaction = await web3.eth.getTransaction(transactionHashToFetch);
     console.log(`Transaction with Hash ${transactionHashToFetch}:`, fetchedTransaction);
 
-    // 4. ABI 정의 - Application Binary Interface
+    // ABI 정의 - Application Binary Interface
     const minABI = [
       {
         constant: true,
@@ -43,10 +46,11 @@ const web3 = new Web3(endpoints);
     const wallet_address = '0xcEe284F754E854890e311e3280b767F80797180d'; // 사용자 지갑 주소
     const token_address = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'; // 컨트랙트 주소
 
-    // 5. 컨트랙트 인스턴스 생성
+    // 컨트랙트 인스턴스 생성
     const contract = new web3.eth.Contract(minABI, token_address); // 컨트랙트 인스턴스
 
-    // 6. 해당 컨트랙트의 balanceOf 함수 실행 (wallet_address가 보유한 contract의 토큰 갯수)
+    // 해당 컨트랙트의 balanceOf 함수 실행 
+    // wallet_address가 보유한 contract의 토큰 개수
     const balance = await contract.methods.balanceOf(wallet_address).call({ from: wallet_address }); // from 속성 추가
     console.log(`Balance of ${wallet_address} in the contract: ${balance}`);
   } catch (error) {
